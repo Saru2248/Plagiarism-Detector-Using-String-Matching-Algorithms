@@ -1,0 +1,15 @@
+In this assignment, we discuss computer programming and string matching.
+Computer programming is the process of designing and building an executable computer program to accomplish a specific computing result.
+We will study how to find matching patterns in text files.
+The Knuth-Morris-Pratt algorithm is a string-matching algorithm that searches for occurrences of a word within a main text string.
+It uses a precomputed table, often called the prefix function, to decide where to slide the pattern.
+This avoids backtracking over characters that have already matched, which results in a linear time complexity of O(n + m).
+Additionally, we looked at the Rabin-Karp algorithm which is another string-searching algorithm.
+Rabin-Karp is another powerful string-searching algorithm that uses hashing to find any one of a set of pattern strings.
+It employs a rolling hash function to compute hash values of substrings quickly, achieving average O(n + m) time complexity.
+However, in the worst-case scenario, its time complexity can degrade to O(n * m) due to hash collisions.
+In conclusion, plagiarism is defined as the practice of taking someone else's work or ideas and passing them off as one's own.
+We should write our own code and avoid cheating in assignments.
+Using efficient string-matching algorithms makes it possible to scan thousands of pages in a few seconds.
+This project is highly valued by hiring managers because it solves a real-world problem using fundamental computer science concepts.
+Thank you for reading my submission.

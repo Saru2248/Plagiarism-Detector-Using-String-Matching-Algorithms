@@ -1,0 +1,15 @@
+Computer programming is the process of designing and building an executable computer program to accomplish a specific computing result.
+The Knuth-Morris-Pratt algorithm is a string-matching algorithm that searches for occurrences of a word within a main text string.
+It uses a precomputed table, often called the prefix function or failure function, to determine where to slide the pattern.
+This avoids backtracking over characters that have already matched, which results in a linear time complexity of O(n + m).
+Rabin-Karp is another powerful string-searching algorithm that uses hashing to find any one of a set of pattern strings.
+It employs a rolling hash function to compute hash values of substrings quickly, achieving average O(n + m) time complexity.
+However, in the worst-case scenario, its time complexity can degrade to O(n * m) due to hash collisions.
+Academic integrity is a fundamental value of higher education, requiring students to submit original work and cite sources.
+Plagiarism is defined as the practice of taking someone else's work or ideas and passing them off as one's own.
+Detecting plagiarism involves comparing a submitted text against a database of reference documents to find similarities.
+Using efficient string-matching algorithms makes it possible to scan thousands of pages in a few seconds.
+Data structures and algorithms form the foundation of computer science, enabling developers to build scalable systems.
+Proper software engineering practices require modular code, thorough testing, and clean documentation.
+For a student's portfolio, a plagiarism detector project demonstrates strong command of algorithms, data structures, and text processing.
+It is highly valued by hiring managers because it solves a real-world problem using fundamental computer science concepts.

@@ -1,0 +1,15 @@
+This is a clean and original submission for the string matching assignment.
+String matching is a key topic in computer science with many applications.
+For instance, web search engines use pattern matching to find search terms in documents.
+Similarly, bioinformaticians scan DNA sequences for specific genetic markers using these methods.
+The naive approach compares the pattern with the text at every possible starting point.
+Although simple to implement, the naive method is inefficient for long texts or patterns.
+To solve this, advanced techniques like Knuth-Morris-Pratt and Rabin-Karp were invented.
+These algorithms optimize the matching process by avoiding redundant comparisons.
+KMP analyzes the pattern structure beforehand to identify repeat suffixes.
+Rabin-Karp computes mathematical hashes of text windows to match multiple patterns at once.
+Both approaches significantly reduce computational time compared to the basic search.
+Writing original essays and coding assignments is vital for academic growth and honesty.
+This project is an independent implementation of text similarity tools.
+I have not copied any text from the reference materials provided in class.
+I hope this work meets the grading criteria.

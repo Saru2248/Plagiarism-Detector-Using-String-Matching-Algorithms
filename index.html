@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Detector Dashboard | DSA Course Project</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="src/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon">PD</div>
+                <div class="logo-text">
+                    <h1>Plagiarism Detector</h1>
+                    <p>String Matching Algorithms & Document Similarity Analysis</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Light/Dark Theme">
+                    <!-- Default: Sun Icon (Dark Mode active) -->
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Onboarding Guide -->
+        <div class="onboarding-guide">
+            <div class="onboarding-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h4>Load Documents</h4>
+                    <p>Drag & drop text files or select samples below.</p>
+                </div>
+            </div>
+            <div class="onboarding-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h4>Configure Settings</h4>
+                    <p>Adjust string matching thresholds & parameters.</p>
+                </div>
+            </div>
+            <div class="onboarding-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h4>Review Plagiarism</h4>
+                    <p>Compare sentences & run performance benchmarks.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="compare-panel">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                Compare Documents
+            </button>
+            <button class="tab-btn" data-tab="analytics-panel">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                Deep Analytics
+            </button>
+            <button class="tab-btn" data-tab="sim-panel">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Algorithm Simulator
+            </button>
+            <button class="tab-btn" data-tab="interview-panel">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Interview Prep
+            </button>
+            <button class="tab-btn" data-tab="docs-panel">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                DSA Course Notes
+            </button>
+        </nav>
+
+        <!-- Tab Panel 1: Compare Documents -->
+        <div class="tab-panel active" id="compare-panel">
+            <div class="card">
+                <div class="card-title">Document Input Center</div>
+                
+                <!-- Text areas input grid -->
+                <div class="grid-2">
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Reference Document (Original Source)</span>
+                            <button class="sample-btn" id="load-orig-sample">Load Sample Reference</button>
+                        </div>
+                        <div class="drag-zone">
+                            <textarea id="original-input" placeholder="Paste original reference text or drag-and-drop a .txt file here..."></textarea>
+                            <div class="live-counters">
+                                <div class="counter-item">Words: <span id="orig-words-lbl">0</span></div>
+                                <div class="counter-item">Characters: <span id="orig-chars-lbl">0</span></div>
+                                <div class="counter-item">Sentences: <span id="orig-sents-lbl">0</span></div>
+                            </div>
+                        </div>
+                        <div class="input-footer">
+                            <div class="file-input-wrapper">
+                                <button class="file-btn" id="original-file-btn">Choose File(s)...</button>
+                                <input type="file" id="original-file" accept=".txt" multiple>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <span>Student Submission Document</span>
+                            <div>
+                                <button class="sample-btn" id="load-sub-plag" style="margin-right: 10px;">Load Plagiarized Sample</button>
+                                <button class="sample-btn" id="load-sub-clean">Load Clean Sample</button>
+                            </div>
+                        </div>
+                        <div class="drag-zone">
+                            <textarea id="submitted-input" placeholder="Paste student submission text or drag-and-drop a .txt file here..."></textarea>
+                            <div class="live-counters">
+                                <div class="counter-item">Words: <span id="sub-words-lbl">0</span></div>
+                                <div class="counter-item">Characters: <span id="sub-chars-lbl">0</span></div>
+                                <div class="counter-item">Sentences: <span id="sub-sents-lbl">0</span></div>
+                            </div>
+                        </div>
+                        <div class="input-footer">
+                            <div class="file-input-wrapper">
+                                <button class="file-btn">Choose File...</button>
+                                <input type="file" id="submitted-file" accept=".txt">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parameters Controls Bar -->
+                <div class="controls-bar">
+                    <div class="input-group" style="margin-bottom: 0;">
+                        <span class="input-label" style="font-size: 0.8rem;">Select Algorithm <span class="help-tooltip" title="KMP: guarantees linear O(N+M) complexity; Rabin-Karp: uses rolling hashes; Naive: O(N*M) brute-force.">?</span></span>
+                        <div class="select-wrapper">
+                            <select id="algo-select">
+                                <option value="kmp">Knuth-Morris-Pratt (KMP)</option>
+                                <option value="rabin-karp">Rabin-Karp (Rolling Hash)</option>
+                                <option value="naive">Naive String Matching</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" style="margin-bottom: 0; max-width: 130px;">
+                        <span class="input-label" style="font-size: 0.8rem;">Min Sentence Words <span class="help-tooltip" title="Ignore matching sentences that contain fewer than this number of words. Prevents false flags.">?</span></span>
+                        <input type="number" id="param-words" value="2" min="1" max="10" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 9px 12px; border-radius: 8px; outline: none; width: 100%;">
+                    </div>
+                    
+                    <div class="input-group" style="margin-bottom: 0; max-width: 130px;">
+                        <span class="input-label" style="font-size: 0.8rem;">Min Sentence Chars <span class="help-tooltip" title="Ignore matching sentences that contain fewer than this number of characters. Prevents false flags.">?</span></span>
+                        <input type="number" id="param-chars" value="5" min="2" max="30" style="background-color: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 9px 12px; border-radius: 8px; outline: none; width: 100%;">
+                    </div>
+
+                    <button class="primary-btn" id="analyze-btn" style="height: 40px; margin-top: auto; margin-left: auto;">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        Analyze Documents
+                    </button>
+                </div>
+            </div>
+
+            <!-- Plagiarism Results Panel (Revealed Dynamically) -->
+            <div id="results-section" style="display: none;">
+
+                <!-- Export & Share Bar -->
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <button class="export-btn" id="export-pdf-btn">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        Export PDF Report
+                    </button>
+                    <button class="export-btn" id="export-json-btn" style="background: linear-gradient(135deg, #0f766e, #0d9488);">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Export JSON Data
+                    </button>
+                </div>
+                <div class="grid-4" style="margin-bottom: 25px;">
+                    <!-- Circular Gauge Card -->
+                    <div class="metric-card">
+                        <div class="metric-title">Overall Plagiarism Score</div>
+                        <div class="metric-circle-wrapper">
+                            <svg class="metric-circle-svg" width="120" height="120">
+                                <circle class="circle-bg" cx="60" cy="60" r="54"></circle>
+                                <circle class="circle-progress" cx="60" cy="60" r="54"></circle>
+                            </svg>
+                            <div class="circle-text">0%</div>
+                        </div>
+                        <div class="metric-desc">Percentage of submission words flagged as exact verbatim copies.</div>
+                    </div>
+
+                    <!-- Jaccard Card -->
+                    <div class="metric-card" style="display: flex; flex-direction: column; justify-content: center;">
+                        <div class="metric-title">Jaccard Similarity <span class="help-tooltip" title="Jaccard = |Intersection of Words| / |Union of Words|. Evaluates overall thematic word overlap.">?</span></div>
+                        <div class="metric-value-huge text-primary" id="jaccard-val">0%</div>
+                        <div class="metric-desc">Global unique vocabulary overlap, bypassing sentence structural alignment.</div>
+                    </div>
+
+                    <!-- Containment Card -->
+                    <div class="metric-card" style="display: flex; flex-direction: column; justify-content: center;">
+                        <div class="metric-title">Containment Score <span class="help-tooltip" title="Containment = |Intersection of Words| / |Words in Student File|. Catches short paragraphs copied into massive reference text databases.">?</span></div>
+                        <div class="metric-value-huge text-warning" id="containment-val">0%</div>
+                        <div class="metric-desc">Proportion of student submission vocabulary contained inside reference database.</div>
+                    </div>
+
+                    <!-- MinHash Card -->
+                    <div class="metric-card" style="display: flex; flex-direction: column; justify-content: center;">
+                        <div class="metric-title">MinHash Similarity <span class="help-tooltip" title="MinHash Jaccard = Fraction of matching values in two length-50 signature arrays. Runs in sub-linear time.">?</span></div>
+                        <div class="metric-value-huge" style="color: #c084fc;" id="minhash-val">0%</div>
+                        <div class="metric-desc">Approximated Jaccard similarity using 50 deterministic linear hash equations.</div>
+                    </div>
+                </div>
+
+                <!-- Interpretation banner -->
+                <div class="interpretation-box" id="score-interpretation">
+                    <!-- Loaded dynamically -->
+                </div>
+
+                <!-- Ranked Source Matches (Revealed Dynamically when multiple references exist) -->
+                <div class="card" id="ranked-sources-card" style="display: none;">
+                    <div class="card-title" id="ranked-sources-card-title">Database Source Matches (Ranked by Plagiarism Score)</div>
+                    <div class="grid-3" id="ranked-sources-list" style="gap: 15px;">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Highlighted Visual Compare View -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>Side-by-Side Highlighted Comparison Panel</span>
+                        <div style="font-size: 0.8rem; font-weight: normal; display: flex; gap: 15px;">
+                            <span style="color: var(--accent-danger); font-weight: 600;">■ Red: Copied (Click to locate)</span>
+                            <span style="color: var(--accent-warning); font-weight: 600;">■ Orange: Source Matches</span>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-container-wrapper">
+                        <!-- Left and Right matching panels -->
+                        <div class="comparison-container">
+                            <div class="comparison-header">
+                                <div class="comparison-pane-title">Reference Document</div>
+                                <div class="comparison-pane-title">Student's Submission</div>
+                            </div>
+                            <div class="comparison-body">
+                                <div class="comparison-pane" id="highlighted-original">Original text will load here.</div>
+                                <div class="comparison-pane" id="highlighted-submitted">Student text will load here.</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sidebar matching index list navigator -->
+                        <div class="match-sidebar">
+                            <div class="match-sidebar-title">Flagged Matches Index</div>
+                            <div class="match-list" id="match-sidebar-list">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 10px;">
+                        💡 <strong>Interactive Scrolling:</strong> Click on any red highlighted sentence in the right panel or select a match card from the <strong>Flagged Matches Index</strong>. Both panels will scroll and highlight matching source segments automatically.
+                    </p>
+                </div>
+
+                <!-- Algorithm Benchmarks Grid -->
+                <div class="grid-2">
+                    <div class="card" style="margin-bottom: 0;">
+                        <div class="card-title">Performance Benchmark Table</div>
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>Comparisons</th>
+                                    <th>Collisions</th>
+                                    <th>Exec Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Naive</strong></td>
+                                    <td id="bench-naive-comp">0</td>
+                                    <td id="bench-naive-coll">N/A</td>
+                                    <td id="bench-naive-time" style="color: var(--accent-danger);">0.00 ms</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>KMP</strong></td>
+                                    <td id="bench-kmp-comp">0</td>
+                                    <td id="bench-kmp-coll">N/A</td>
+                                    <td id="bench-kmp-time" style="color: var(--accent-success); font-weight: bold;">0.00 ms</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rabin-Karp</strong></td>
+                                    <td id="bench-rk-comp">0</td>
+                                    <td id="bench-rk-coll">0</td>
+                                    <td id="bench-rk-time" style="color: var(--accent-warning);">0.00 ms</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+                            <strong>Detailed Statistics:</strong> Checked <span id="stat-checked" style="color: white; font-weight: bold;">0</span> sentence structures. Marked <span id="stat-flagged" style="color: var(--accent-danger); font-weight: bold;">0</span> exact matches.
+                        </div>
+                    </div>
+
+                    <!-- Performance Comparison Bar Charts -->
+                    <div class="card" style="margin-bottom: 0;">
+                        <div class="card-title">Execution Metric Visualizer</div>
+                        
+                        <div class="chart-container">
+                            <h5 style="font-size: 0.85rem; margin-bottom: 10px;">Character comparisons (Less is better)</h5>
+                            <div class="chart-bar-group">
+                                <div class="chart-bar-label">Naive Brute-Force [O(N*M)]</div>
+                                <div class="chart-bar-track">
+                                    <div class="chart-bar-fill bar-naive" id="fill-naive-comp"></div>
+                                    <span class="chart-bar-value" id="val-naive-comp">0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-bar-group">
+                                <div class="chart-bar-label">Knuth-Morris-Pratt [O(N+M)]</div>
+                                <div class="chart-bar-track">
+                                    <div class="chart-bar-fill bar-kmp" id="fill-kmp-comp"></div>
+                                    <span class="chart-bar-value" id="val-kmp-comp">0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-bar-group">
+                                <div class="chart-bar-label">Rabin-Karp Rolling Hash [O(N+M) avg]</div>
+                                <div class="chart-bar-track">
+                                    <div class="chart-bar-fill bar-rk" id="fill-rk-comp"></div>
+                                    <span class="chart-bar-value" id="val-rk-comp">0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chart-container" style="margin-top: 20px;">
+                            <h5 style="font-size: 0.85rem; margin-bottom: 10px;">Runtime Speed (Less is better)</h5>
+                            <div class="chart-bar-group">
+                                <div class="chart-bar-label">Naive Brute-Force</div>
+                                <div class="chart-bar-track">
+                                    <div class="chart-bar-fill bar-naive" id="fill-naive-time"></div>
+                                    <span class="chart-bar-value" id="val-naive-time">0 ms</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-bar-group">
+                                <div class="chart-bar-label">Knuth-Morris-Pratt</div>
+                                <div class="chart-bar-track">
+                                    <div class="chart-bar-fill bar-kmp" id="fill-kmp-time"></div>
+                                    <span class="chart-bar-value" id="val-kmp-time">0 ms</span>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-bar-group">
+                                <div class="chart-bar-label">Rabin-Karp Rolling Hash</div>
+                                <div class="chart-bar-track">
+                                    <div class="chart-bar-fill bar-rk" id="fill-rk-time"></div>
+                                    <span class="chart-bar-value" id="val-rk-time">0 ms</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Panel 2: Deep Analytics -->
+        <div class="tab-panel" id="analytics-panel">
+
+            <!-- Sentence Risk Timeline -->
+            <div class="card">
+                <div class="card-title">
+                    <span>📈 Sentence Risk Timeline</span>
+                    <span style="font-size:0.8rem; font-weight:normal; color:var(--text-secondary)">Height = word count. Color = plagiarism risk per sentence.</span>
+                </div>
+                <div id="risk-timeline-placeholder" style="color:var(--text-secondary); text-align:center; padding:40px 0; font-size:0.9rem;">
+                    Run an analysis on the <strong>Compare Documents</strong> tab to generate the risk timeline.
+                </div>
+                <div id="risk-timeline-wrap" style="display:none;">
+                    <div class="risk-timeline">
+                        <div class="risk-timeline-inner" id="risk-timeline-bars"></div>
+                        <div class="risk-timeline-labels">
+                            <span>Sentence 1</span>
+                            <span id="risk-mid-label"></span>
+                            <span id="risk-end-label"></span>
+                        </div>
+                    </div>
+                    <div class="risk-legend">
+                        <div class="risk-legend-item"><div class="risk-legend-box" style="background:#dc2626;"></div> High Risk (Plagiarized)</div>
+                        <div class="risk-legend-item"><div class="risk-legend-box" style="background:#d97706;"></div> Medium Risk (≥50% words matched)</div>
+                        <div class="risk-legend-item"><div class="risk-legend-box" style="background:#059669;"></div> Safe (Original)</div>
+                        <div class="risk-legend-item"><div class="risk-legend-box" style="background:var(--bg-tertiary); border:1px solid var(--border-color);"></div> Skipped (Too short)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Word Frequency Analysis -->
+            <div class="grid-2">
+                <div class="card" style="margin-bottom:0;">
+                    <div class="card-title">🔤 Word Frequency Analysis</div>
+                    <div id="freq-placeholder" style="color:var(--text-secondary); text-align:center; padding:30px 0; font-size:0.9rem;">Run analysis first to load frequency data.</div>
+                    <div id="freq-section" style="display:none;">
+                        <div class="freq-tabs">
+                            <button class="freq-tab-btn active" data-freq="original" id="freq-tab-orig">Reference Top Words</button>
+                            <button class="freq-tab-btn" data-freq="submitted" id="freq-tab-sub">Submission Top Words</button>
+                            <button class="freq-tab-btn" data-freq="shared" id="freq-tab-shared">Shared Words</button>
+                        </div>
+                        <div class="freq-legend">
+                            <span><span class="freq-legend-dot" style="background:#3b82f6;"></span>Reference</span>
+                            <span><span class="freq-legend-dot" style="background:#ef4444;"></span>Submission</span>
+                        </div>
+                        <div class="freq-chart" id="freq-chart-area"></div>
+                    </div>
+                </div>
+
+                <!-- N-Gram Fingerprint -->
+                <div class="card" style="margin-bottom:0;">
+                    <div class="card-title">🧬 N-Gram Fingerprint</div>
+                    <div id="ngram-placeholder" style="color:var(--text-secondary); text-align:center; padding:30px 0; font-size:0.9rem;">Run analysis first to generate n-gram fingerprints.</div>
+                    <div id="ngram-section" style="display:none;">
+                        <div class="ngram-controls">
+                            <label style="font-size:0.85rem; font-weight:600; color:var(--text-secondary);">N-Gram Size:</label>
+                            <select class="ngram-select" id="ngram-size-select">
+                                <option value="2">Bigrams (2-word)</option>
+                                <option value="3" selected>Trigrams (3-word)</option>
+                                <option value="4">4-Grams</option>
+                            </select>
+                            <button class="secondary-btn" id="ngram-refresh-btn" style="padding:8px 14px; font-size:0.82rem;">Refresh</button>
+                        </div>
+                        <div class="ngram-stats" id="ngram-stats-area"></div>
+                        <div class="ngram-grid" id="ngram-chip-area"></div>
+                        <p style="font-size:0.75rem; color:var(--text-secondary); margin-top:12px;">
+                            <span style="color:#fca5a5;">■ Red</span> = shared (plagiarism signal) &nbsp;
+                            <span style="color:#93c5fd;">■ Blue</span> = reference only &nbsp;
+                            <span style="color:#fde68a;">■ Yellow</span> = submission only
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Panel 3: Algorithm Simulator -->
+        <div class="tab-panel" id="sim-panel">
+            <div class="card">
+                <div class="card-title">Virtual Simulation Studio</div>
+                
+                <div class="sim-grid">
+                    <!-- Simulator Settings Panel -->
+                    <div class="sim-controls">
+                        <div class="sim-inputs">
+                            <div style="flex-grow: 1;">
+                                <label style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 5px;">Main Text to Search</label>
+                                <input type="text" id="sim-text-input" value="ababcababdababcabab">
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <label style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 5px;">Pattern to Find</label>
+                                <input type="text" id="sim-pat-input" value="ababcabab">
+                            </div>
+                        </div>
+                        
+                        <div class="select-wrapper" style="margin-top: auto;">
+                            <label style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 5px;">Algorithm</label>
+                            <select id="sim-algo-select" style="min-width: 140px; padding: 8px 12px;">
+                                <option value="kmp">KMP (LSP Table)</option>
+                                <option value="rabin-karp">Rabin-Karp Hash</option>
+                            </select>
+                        </div>
+                        
+                        <div class="sim-btn-group" style="margin-top: auto;">
+                            <button class="primary-btn" id="start-sim-btn" style="padding: 9px 16px;">Start Simulation</button>
+                            <button class="secondary-btn" id="stop-sim-btn" style="padding: 9px 16px;" disabled>Stop</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Visual Rendering Console -->
+                    <div class="sim-display-area" id="sim-display">
+                        <p style="color: var(--text-secondary);">Click "Start Simulation" to initialize visual execution logs.</p>
+                    </div>
+                    
+                    <!-- Log Box -->
+                    <div class="sim-logs-container">
+                        <div class="sim-logs-title">Execution Steps Log Console</div>
+                        <div class="sim-logs" id="sim-logs-box">
+                            <div class="sim-log-entry">Waiting for simulation to start...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Panel 4: Interview Prep -->
+        <div class="tab-panel" id="interview-panel">
+            <div class="card">
+                <div class="card-title">
+                    <span>🎯 DSA Interview Preparation — Algorithm Flashcards</span>
+                    <span id="interview-count-badge" style="font-size:0.8rem; font-weight:normal; color:var(--text-secondary);">Click any card to reveal the answer</span>
+                </div>
+
+                <div class="interview-progress">
+                    <span class="interview-progress-text" id="interview-progress-label">0 / 12 Answered</span>
+                    <div class="interview-progress-bar-wrap">
+                        <div class="interview-progress-fill" id="interview-progress-fill"></div>
+                    </div>
+                    <button class="secondary-btn" id="reset-flashcards-btn" style="padding:7px 14px; font-size:0.8rem;">Reset All</button>
+                </div>
+
+                <div class="flashcard-grid" id="flashcard-grid"><!-- Loaded by JS --></div>
+            </div>
+        </div>
+
+        <!-- Tab Panel 5: Course Materials -->
+        <div class="tab-panel" id="docs-panel">
+            <div class="card">
+                <div class="card-title">Data Structures & Algorithms Course Workbook</div>
+                
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <div>
+                        <h3 style="color: var(--accent-primary); margin-bottom: 8px;">1. Knuth-Morris-Pratt (KMP) Logic</h3>
+                        <p style="margin-bottom: 10px;">The KMP algorithm processes the pattern to generate the <strong>LSP failure table</strong>. By knowing repeating components within the string, it skips redundant index checks during text search operations.</p>
+                        <p style="font-family: monospace; font-size: 0.9rem; background-color: var(--bg-tertiary); padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);">
+                            Time Complexity: O(N + M)  |  Space Complexity: O(M)
+                        </p>
+                    </div>
+                    
+                    <hr style="border: 0; border-top: 1px solid var(--border-color);">
+                    
+                    <div>
+                        <h3 style="color: var(--accent-warning); margin-bottom: 8px;">2. Rabin-Karp Polynomial Hash Formulas</h3>
+                        <p style="margin-bottom: 10px;">Rabin-Karp turns matching operations into numbers. Substrings of length $M$ are evaluated as a base-$d$ base polynomial representation modulo a large prime $q$ to check for duplicate content.</p>
+                        
+                        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background-color: var(--bg-tertiary); padding: 15px; border-radius: 6px; border: 1px solid var(--border-color); line-height: 1.5; margin-bottom: 10px;">
+                            Pattern Hash Formula:<br>
+                            Hash(P) = (P[0]*d^(M-1) + P[1]*d^(M-2) + ... + P[M-1]*d^0) % Modulo<br><br>
+                            
+                            Rolling Hash Math (O(1) Shift):<br>
+                            Hash(Next) = (d * (Hash(Prev) - OutgoingChar * d^(M-1)) + IncomingChar) % Modulo
+                        </div>
+                    </div>
+                    
+                    <hr style="border: 0; border-top: 1px solid var(--border-color);">
+                    
+                    <div>
+                        <h3 style="color: var(--accent-success); margin-bottom: 8px;">3. Set Similarity (Jaccard and Containment)</h3>
+                        <p style="margin-bottom: 10px;">To catch modified or rearranged paragraphs where exact string searches fail, set math evaluates overall content overlaps.</p>
+                        <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>Jaccard Similarity Index:</strong> Intersection divided by Union of words: $\frac{|A \cap B|}{|A \cup B|}$. Catches overall vocab matches.</li>
+                            <li><strong>Containment Score:</strong> Intersection divided by size of submission set: $\frac{|A \cap B|}{|A|}$. Identifies paragraphs copy-pasted into massive reference text databases.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div style="margin-bottom:10px;">
+                <strong style="color:var(--text-primary);">Plagiarism Detector</strong> &bull; String Matching Algorithms DSA Course Project
+            </div>
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; color:var(--text-secondary); font-size:0.8rem;">
+                <span>🔍 KMP &bull; Rabin-Karp &bull; Naive Search</span>
+                <span>📊 Jaccard &bull; Containment &bull; MinHash</span>
+                <span>🧬 N-Gram Fingerprints &bull; Risk Timeline</span>
+                <span>🎯 Interview Prep Flashcards</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Main JavaScript Controller -->
+    <script src="src/dashboard.js"></script>
+</body>
+</html>
